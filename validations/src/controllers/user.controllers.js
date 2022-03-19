@@ -30,7 +30,7 @@ router.post(
     .isEmpty()
     .withMessage("Age cannot be empty")
     .isNumeric()
-    .withMessage("Age must be a number between 1 and 120")
+    .withMessage("Age must be a number between 1 and 10")
     .custom((val) => {
       if (val < 1 || val > 100) {
         throw new Error("Incorrect age provided");
@@ -57,6 +57,12 @@ router.post(
   body("lastName").custom((value) => {
     if (value && value.length < 4) {
       throw new Error("Last Name if provided must be at least 4 characters");
+    }
+    return true;
+  }),
+  body("Gender").custom((value) => {
+    if (!value == 'male' || !value == 'female' || !value == 'other') {
+      throw new Error("Enter Gender");
     }
     return true;
   }),
